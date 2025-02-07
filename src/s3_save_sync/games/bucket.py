@@ -3,22 +3,24 @@ import os
 
 import boto3
 
-from .games.game import TrackedGame
-from .logging import LOGGER
+from .game import LocalGame
+from ..logging import LOGGER
 
-class SaveBucket:
-    def __init__(self):
+class BucketGame:
+    def __init__(self, key: str):
         self.endpoint = os.getenv('S3_SAVE_SYNC_ENDPOINT')
         self.bucket = os.getenv('S3_SAVE_SYNC_BUCKET')
         self.key = os.getenv('S3_SAVE_SYNC_KEY')
         self.key_id = os.getenv('S3_SAVE_SYNC_KEY_ID')
+
+        self.game_key = key
 
         if not all([self.endpoint, self.bucket, self.key, self.key_id]):
             LOGGER.log(logging.ERROR, "Missing S3 environment variables")
             raise Exception("Missing S3 environment variables")
 
 
-    def get_existing(self, game: TrackedGame):
+    def get_existing(self):
         try:
             s3 = boto3.client(service_name='s3',
                             endpoint_url=self.endpoint,
@@ -32,7 +34,7 @@ class SaveBucket:
         try:
             paginator = s3.get_paginator('list_objects_v2')
             pages = paginator.paginate(Bucket=self.bucket,
-                                        Prefix=game.key + '/')
+                                        Prefix=self.game_key + '/')
             existing_files = []
             for page in pages:
                 if page['KeyCount'] == 0: 

@@ -1,8 +1,8 @@
 from pathlib import Path
 
-from .games.game import load_games_from_toml, TrackedGame
+from .games.game import load_games_from_toml, LocalGame
 from . import APP_PATH
-from .bucket import SaveBucket
+from .games.bucket import SaveBucket
 
 def run():
     default_games = load_games_from_toml(Path(__file__).parent / 'games' / "default_games.toml")

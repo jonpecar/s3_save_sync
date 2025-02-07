@@ -3,7 +3,7 @@ import platform
 import tomllib
 from pathlib import Path
 
-class TrackedGame:
+class LocalGame:
     def __init__(self,
                  key: str,
                  name: str,
@@ -40,4 +40,4 @@ def load_games_from_toml(path: Path):
                 path = Path(os.getenv('USERPROFILE')) / "Appdata" / "Roaming" / game['windows']['path']
             if not path or not path.exists():
                 continue
-            yield TrackedGame(key, name, path)
+            yield LocalGame(key, name, path)
