@@ -1,0 +1,5 @@
+[RogueTrader]
+name = "Rogue Trader"
+[RogueTrader.Windows]
+path_type = "locallow"
+path = "Owlcat Games\\Warhammer 40000 Rogue Trader\\Saved Games"

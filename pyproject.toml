@@ -1,0 +1,22 @@
+[build-system]
+requires = [
+    "setuptools>=60",
+    "setuptools-scm>=8.0"]
+
+[project]
+name = "s3_save_sync"
+version = "0.0.1"
+dependencies = [
+  "boto3",
+  "watchdog"
+]
+requires-python = ">=3.11"
+authors = [
+]
+maintainers = [
+]
+description = "Tool to synchronise save games between PC and an S3 compatible bucket"
+readme = "README.md"
+
+[tool.setuptools.package-data]
+myModule = ["*.toml"]
