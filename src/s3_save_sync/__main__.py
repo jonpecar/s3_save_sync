@@ -1,5 +1,5 @@
 from pathlib import Path
 
-from .runner import run
+from .runner import first_run_sync
 
-run()
+first_run_sync()
