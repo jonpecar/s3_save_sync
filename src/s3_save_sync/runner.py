@@ -2,7 +2,7 @@ from pathlib import Path
 
 from .games.game import load_games_from_toml, LocalGame
 from . import APP_PATH
-from .games.bucket import SaveBucket
+from .games.bucket import BucketGame
 
 def run():
     default_games = load_games_from_toml(Path(__file__).parent / 'games' / "default_games.toml")
@@ -12,8 +12,10 @@ def run():
         if not any(game.key == g.key for g in games):
             games.append(game)
 
-    bucket = SaveBucket()
+
 
     for game in games:
-        bucket.get_existing(game)
+        bucket_game = BucketGame(game.key)
+        bucket_game.get_existing()
+
 
