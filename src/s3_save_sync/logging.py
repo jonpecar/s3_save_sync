@@ -15,7 +15,7 @@ def get_logger():
 
     consoleHandler = logging.StreamHandler()
     consoleHandler.setFormatter(logFormatter)
-    consoleHandler.setLevel(logging.DEBUG)
+    consoleHandler.setLevel(logging.INFO)
     rootLogger.addHandler(consoleHandler)
     return rootLogger
 

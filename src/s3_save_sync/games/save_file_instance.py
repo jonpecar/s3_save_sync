@@ -58,7 +58,7 @@ class SaveFileInstance:
                                 sha1_hash=hash_func)
 
     def __str__(self) -> str:
-        return f"SaveFileInstance({self.rel_path}, {self.timestamp}, {self.sha1_hash})"
+        return f"SaveFileInstance({self.rel_path}, {self.timestamp}, {self.hash})"
 
 
 

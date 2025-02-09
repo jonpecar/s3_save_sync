@@ -24,6 +24,9 @@ class LocalGame:
                 files.append(SaveFileInstance.from_local_filesystem(file, self.path))
         return files
 
+    
+    
+
 def load_games_from_toml(toml_path: Path):
     if not toml_path.exists():
         return []

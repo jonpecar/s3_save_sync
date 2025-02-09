@@ -27,6 +27,9 @@ class BucketGame:
 
         self.manifest = self._get_existing_manifest()
 
+    def refresh_manifest(self) -> None:
+        self.manifest = self._get_existing_manifest()
+
     def _get_existing_manifest(self) -> list[SaveFileInstance]:
         s3 = boto3.client(service_name='s3',
                 endpoint_url=self.endpoint,
