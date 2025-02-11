@@ -39,15 +39,26 @@ def run(initial_sync: bool, monitor: bool, sync_freq: int = -1):
             synchers.append(syncher)
     
     if monitor:
+        time_since_last_check = 0
+        LOGGER.info(f"Starting filesystem synconronisation loop")
+        if time_since_last_check > 0:
+            LOGGER.info(f"Full synchronisation to occur every {sync_freq} seconds")
         observer.start()
         try:
             while observer.is_alive():
                 observer.join(1)
+                
+                if sync_freq > 0:
+                    time_since_last_check += 1
+                    if time_since_last_check > sync_freq:
+                        for syncher in synchers:
+                            syncher.synchronise()
+                        time_since_last_check = 0
         finally:
             observer.stop()
             observer.join()
 
-    if sync_freq > 0:
+    if sync_freq > 0 and not monitor:
         LOGGER.info(f"Starting synchronisation loop at {sync_freq} seconds")
         while True:
             sleep(sync_freq)
