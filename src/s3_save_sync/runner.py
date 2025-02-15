@@ -46,7 +46,8 @@ def run(initial_sync: bool, monitor: bool, sync_freq: int = -1):
         observer.start()
         try:
             while observer.is_alive():
-                observer.join(1)
+                sleep(1)
+                # observer.join(60)
                 
                 if sync_freq > 0:
                     time_since_last_check += 1

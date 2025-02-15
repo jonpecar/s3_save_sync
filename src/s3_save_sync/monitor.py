@@ -32,8 +32,7 @@ class SaveSyncher(watchdog.events.FileSystemEventHandler):
                 matched_remote = True
                 if (local_version.timestamp == remote_version.timestamp):
                     LOGGER.info(f"{local_version} already synced. Skipping.")
-                elif (local_version.timestamp > remote_version.timestamp
-                    and local_version.hash != remote_version.hash):
+                elif (local_version.timestamp > remote_version.timestamp):
                     LOGGER.info(f"Uploading new version of {local_version}")
                     self.bucket_game.upload(local_version, self.local_game)
                 elif (local_version.timestamp < remote_version.timestamp):
