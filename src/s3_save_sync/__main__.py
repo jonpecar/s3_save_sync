@@ -2,4 +2,4 @@ from pathlib import Path
 
 from .runner import run
 
-run(True, True)
+run(True, True, 300)

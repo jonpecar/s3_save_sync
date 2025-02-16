@@ -31,17 +31,21 @@ class SaveSyncher(watchdog.events.FileSystemEventHandler):
                     continue
                 matched_remote = True
                 if (local_version.timestamp == remote_version.timestamp):
-                    LOGGER.info(f"{local_version} already synced. Skipping.")
+                    pass
+                    LOGGER.debug(f"{local_version} already synced. Skipping.")
                 elif (local_version.timestamp > remote_version.timestamp):
                     LOGGER.info(f"Uploading new version of {local_version}")
                     self.bucket_game.upload(local_version, self.local_game)
+                    LOGGER.info(f"Upload complete")
                 elif (local_version.timestamp < remote_version.timestamp):
                     LOGGER.info(f"Downloading new version of {remote_version}")
                     self.bucket_game.download(remote_version, self.local_game)
+                    LOGGER.info(f"Download complete")
                 break
             if not matched_remote:
                 LOGGER.info(f"No matching version found on S3 for {local_version}. Uploading")
                 self.bucket_game.upload(local_version, self.local_game)
+                LOGGER.info(f"Upload complete")
         
         for remote_version in self.bucket_game.manifest:
             for local_version in local_versions:
@@ -52,3 +56,4 @@ class SaveSyncher(watchdog.events.FileSystemEventHandler):
             if not matched_local:
                 LOGGER.info(f"Downloading missing {remote_version}")
                 self.bucket_game.download(remote_version, self.local_game)
+                LOGGER.info(f"Download complete")

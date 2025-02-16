@@ -52,6 +52,7 @@ def run(initial_sync: bool, monitor: bool, sync_freq: int = -1):
                 if sync_freq > 0:
                     time_since_last_check += 1
                     if time_since_last_check > sync_freq:
+                        LOGGER.info(f"Timed synchronisation starting")
                         for syncher in synchers:
                             syncher.synchronise()
                         time_since_last_check = 0
